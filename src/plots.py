@@ -123,3 +123,29 @@ def make_segregation_stage_overlay(bayes_filtered_distances: pd.DataFrame, figsi
     ax.set_ylabel('Northing')
     ax.set_xlabel('Easting')
     plt.show()
+
+
+def make_diffusivity_comparison_plot(diffusivities:pd.DataFrame):
+    """Make a diffusivity comparison plot using the mean diffusivities from nonlinear, linear, and maximum likelihood models
+
+    Args:
+        diffusivities (pd.DataFrame): Diffusivity dataframe
+    """
+    import seaborn as sns
+    import matplotlib.pyplot as plt
+    sns.set_style('whitegrid')
+    sns.set_palette("Set1")
+    fig, axes = plt.subplots(nrows=1,ncols=3, figsize=(12,3))
+    sns.histplot(data=diffusivities, x='mean_Do_x', kde=True, hue='model', ax=axes[0], bins=50)
+    sns.histplot(data=diffusivities, x='mean_Do_y', kde=True, hue='model', ax=axes[1], bins=50)
+    sns.histplot(data=diffusivities, x='mean_Do_z', kde=True, hue='model', ax=axes[2], bins=50)
+    axes[0].set(xlabel='', title='(a) Lateral Diffusivity (m2/s)')
+    axes[1].set(xlabel='', title='(a) Perpendicular Diffusivity (m2/s)')
+    axes[2].set(xlabel='', title='(b) Vertical Diffusivity (m2/s)')
+    axes[0].get_legend().remove()
+    axes[1].get_legend().remove()
+    axes[0].set_xlim(0,20)
+    axes[1].set_xlim(0,5)
+    axes[2].set_xlim(0,10)
+    plt.tight_layout()
+    plt.show()
