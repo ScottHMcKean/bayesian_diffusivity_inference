@@ -1,0 +1,26 @@
+digraph {
+	Do_x [label="Do_x
+~
+Gamma" shape=ellipse]
+	Do_z [label="Do_z
+~
+Gamma" shape=ellipse]
+	Do_y [label="Do_y
+~
+Gamma" shape=ellipse]
+	subgraph cluster184 {
+		TF_x [label="TF_x
+~
+AsymmetricLaplaceQuantile" shape=ellipse style=filled]
+		TF_z [label="TF_z
+~
+AsymmetricLaplaceQuantile" shape=ellipse style=filled]
+		TF_y [label="TF_y
+~
+AsymmetricLaplaceQuantile" shape=ellipse style=filled]
+		label=184 labeljust=r labelloc=b style=rounded
+	}
+	Do_x -> TF_x
+	Do_y -> TF_y
+	Do_z -> TF_z
+}
