@@ -1,0 +1,36 @@
+digraph {
+	k [label="k
+~
+Gamma" fontname=arial shape=ellipse]
+	Do_x [label="Do_x
+~
+Gamma" fontname=arial shape=ellipse]
+	Do_y [label="Do_y
+~
+Gamma" fontname=arial shape=ellipse]
+	Po [label="Po
+~
+Normal" fontname=arial shape=ellipse]
+	Do_z [label="Do_z
+~
+Gamma" fontname=arial shape=ellipse]
+	subgraph cluster213 {
+		FD_z [label="FD_z
+~
+AsymmetricLaplaceQuantile" fontname=arial shape=ellipse style=filled]
+		TF_y [label="TF_y
+~
+AsymmetricLaplaceQuantile" fontname=arial shape=ellipse style=filled]
+		FD_x [label="FD_x
+~
+AsymmetricLaplaceQuantile" fontname=arial shape=ellipse style=filled]
+		fontname=arial label=213 labeljust=r labelloc=b style=rounded
+	}
+	Po -> FD_x
+	Do_x -> FD_x
+	k -> FD_x
+	Do_y -> TF_y
+	Po -> FD_z
+	k -> FD_z
+	Do_z -> FD_z
+}

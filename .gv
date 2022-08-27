@@ -1,0 +1,37 @@
+digraph {
+	Po [label="Po
+~
+Normal" shape=ellipse]
+	Do_z [label="Do_z
+~
+Gamma" shape=ellipse]
+	k [label="k
+~
+Gamma" shape=ellipse]
+	Do_y [label="Do_y
+~
+Gamma" shape=ellipse]
+	Do_x [label="Do_x
+~
+Gamma" shape=ellipse]
+	subgraph cluster213 {
+		TF_y [label="TF_y
+~
+AsymmetricLaplaceQuantile" shape=ellipse style=filled]
+		FD_z [label="FD_z
+~
+AsymmetricLaplaceQuantile" shape=ellipse style=filled]
+		FD_x [label="FD_x
+~
+AsymmetricLaplaceQuantile" shape=ellipse style=filled]
+		label=213 labeljust=r labelloc=b style=rounded
+	}
+	Po -> FD_x
+	Do_x -> FD_x
+	k -> FD_x
+	Do_y -> TF_y
+	Po -> FD_z
+	Do_z -> FD_z
+	k -> FD_z
+	label="PetriNet Model TrafficLights"
+}
