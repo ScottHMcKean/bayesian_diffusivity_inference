@@ -471,7 +471,7 @@ def make_nonlinear_trace_analysis_plot(
 
 
 def make_diffusivity_comparison_plot(
-    combined_diff_results, nonlinear_bayes_ms_data, fig_size=(13.5, 8)
+    combined_diff_results, nonlinear_bayes_ms_data, stage_data, fig_size=(13.5, 8)
 ):
 
     nonlinear_hf_data = (
@@ -535,11 +535,11 @@ def make_diffusivity_comparison_plot(
         y="dy_cart_m",
         hue="Category",
         color=None,
-        alpha=0.1,
+        s=3,
         ax=axes[1][0],
     )
-    axes[1][0].set_ylim(-1800, 1500)
-    axes[1][0].set_xlim(-2000, 2000)
+    axes[1][0].set_ylim(-1600, 1600)
+    axes[1][0].set_xlim(-1600, 1600)
     axes[1][0].set_ylabel("Northing (m)")
     axes[1][0].set_xlabel("Easting (m)")
     axes[1][0].set_title("d)", y=1.0, x=-0.20)
@@ -559,7 +559,7 @@ def make_diffusivity_comparison_plot(
         rasterized=True,
     )
     sns.scatterplot(
-        data=stagedata.sort_values(["uwi", "md_mid_m"]),
+        data=stage_data.sort_values(["uwi", "md_mid_m"]),
         x="Easting",
         y="Northing",
         color="black",
@@ -585,7 +585,7 @@ def make_diffusivity_comparison_plot(
         rasterized=True,
     )
     sns.scatterplot(
-        data=stagedata.sort_values(["uwi", "md_mid_m"]),
+        data=stage_data.sort_values(["uwi", "md_mid_m"]),
         x="Easting",
         y="Northing",
         color="black",
