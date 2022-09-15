@@ -51,6 +51,47 @@ def make_basic_diffusivity_plot(fig_size=(10, 5)):
     ax.set_ylabel("Distance (m)")
     return fig
 
+def make_combined_basic_diff_quantile_plot(fig_size=(12,4), max_quantile=0.95):
+    """Make a combined plot for the paper"""
+    sns.set_style("whitegrid")
+    fig, axes = plt.subplots(1, 2, gridspec_kw={"width_ratios": [0.9, 1]}, figsize=fig_size)
+    max_quantile = 0.95
+
+    # basic diff plot
+    t = np.linspace(0, 5000, 100)
+    Do = 1  # matrix diffusivity (m2/s)
+    Po = 10  # pressure (MPa)
+    k_dict = {1: "black", 10: "#e41a1c", 100: "#4daf4a"}
+
+    for k in k_dict.keys():
+        k_tilda = k * Po / 1000
+        D = Do * np.exp(k_tilda)
+        r_tf = np.sqrt(6 * D * t)
+        tilda_c = calc_tilda_c(k, Po)
+        r_fd = tilda_c * np.sqrt(Do * t)
+        sns.lineplot(x=t / 3600, y=r_fd, color=k_dict[k], linestyle="--", ax=axes[0])
+        sns.lineplot(x=t / 3600, y=r_tf, color=k_dict[k], linestyle="-", ax=axes[0])
+
+    axes[0].set_ylim([0, 300])
+    axes[0].set_xlabel("Time (hr)")
+    axes[0].set_ylabel("Distance (m)")
+    axes[0].set_title("a)", y=1.0, x=-0.12)
+
+    # contour plot
+    ks = np.arange(1e-3, 1000, 1)
+    ps = np.arange(1, 50, 1)
+    kv, pv = np.meshgrid(ks, ps, sparse=False)
+    quantiles = calc_k_quantile(kv, pv, max_quantile)
+
+    levels = np.round(np.linspace(0, max_quantile, 10 + 1), 2)
+    cs = axes[1].contourf(kv, pv, quantiles, levels=levels)
+    fig.colorbar(cs, ax=axes[1])
+    axes[1].set_xlabel("Permeability Compliance (GPa)")
+    axes[1].set_ylabel("Net Injection Pressure (MPa)")
+    axes[1].set_title("b)", y=1.0, x=-0.14)
+    
+    plt.tight_layout()
+    return fig
 
 def make_stage_plot(distances, params, well, stage, figsize=(10, 3), Do=2):
     stg_dist = distances.query("WellID == @well").query("Stage == @stage").copy()
