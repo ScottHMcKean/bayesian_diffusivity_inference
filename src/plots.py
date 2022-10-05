@@ -237,8 +237,8 @@ def make_stage_w_posterior_predictive_plot(
     sns.set_style("whitegrid")
     t = np.linspace(1, stg_dist["Time from Stage Start (s)"].max(), 1000)
     sns.scatterplot(
-        x=stg_dist["Time from Stage Start (s)"],
-        y=stg_dist["Lateral Distance (m)"].abs(),
+        x=stg_dist[~stg_dist["In Plausible Ellipsoid"]]["Time from Stage Start (s)"],
+        y=stg_dist[~stg_dist["In Plausible Ellipsoid"]]["Lateral Distance (m)"].abs(),
         ax=ax3,
     )
     for chain in nonlinear_trace.posterior.chain.values:
